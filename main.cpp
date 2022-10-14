@@ -31,8 +31,6 @@ public:
         this->z = z;
     }
 
-//    Vector operator=(const Vector& vector)  { return {x, y, z}; }
-
     Vector operator-(const Vector &vector) const { return {x - vector.x, y - vector.y, z - vector.z}; }
 
     Vector operator+(const Vector &vector) const { return {x + vector.x, y + vector.y, z + vector.z}; }
@@ -121,67 +119,50 @@ public:
 
 };
 
-//void clamp255(Vector &col) {
-//    col.x = (col.x > 255) ? 255 : (col.x < 0) ? 0 : col.x;
-//    col.y = (col.y > 255) ? 255 : (col.y < 0) ? 0 : col.y;
-//    col.z = (col.z > 255) ? 255 : (col.z < 0) ? 0 : col.z;
-//}
-
 int main() {
 
-    const short width = 500;
-    const short height = 500;
+    const short width = 410;
+    const short height = 410;
     std::ofstream out("out.ppm");
     out << "P3\n" << width << "\n" << height << "\n" << "255\n";
-    Color pixel_col[height][width];
+    Color pixel_color[410][410];
     Color white(255, 255, 255);
     Color red(255, 0, 0);
     Sphere sphere(Vector(width / 2.0, height / 2.0, 50), 20);
     Sphere light(Vector(0, 0, 50), 1);
-
-
-    /**
-     * we are going to send a ray to each pixel 500x500
-     */
-
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             Ray ray(Vector(float(i), float(j), -50), Vector(0, 0, 1));
-            float t = 2000;
+            float t = 20000;
             if (sphere.intersection(ray, t)) {
-
                 Vector P = ray.origin + ray.direction * t;
                 Vector L = light.center - P;
                 Vector N = sphere.getNormal(P);
                 float dt = dot(L.normalize(), N.normalize());
-
-                pixel_col[j][i] = red + (white * dt) * 1.0;
-
-                if (pixel_col[j][i].r < 0) {
-                    pixel_col[j][i].r = 0;
+                pixel_color[j][i] = red + (white * dt) * 1.0;
+                if (pixel_color[j][i].r < 0) {
+                    pixel_color[j][i].r = 0;
                 }
-                if (pixel_col[j][i].g < 0) {
-                    pixel_col[j][i].g = 0;
+                if (pixel_color[j][i].g < 0) {
+                    pixel_color[j][i].g = 0;
                 }
-                if (pixel_col[j][i].b < 0) {
-                    pixel_col[j][i].b = 0;
+                if (pixel_color[j][i].b < 0) {
+                    pixel_color[j][i].b = 0;
                 }
-                if (pixel_col[j][i].r > 255) {
-                    pixel_col[j][i].r = 255;
+                if (pixel_color[j][i].r > 255) {
+                    pixel_color[j][i].r = 255;
                 }
-                if (pixel_col[j][i].g > 255) {
-                    pixel_col[j][i].g = 255;
+                if (pixel_color[j][i].g > 255) {
+                    pixel_color[j][i].g = 255;
                 }
-                if (pixel_col[j][i].b > 255) {
-                    pixel_col[j][i].b = 255;
+                if (pixel_color[j][i].b > 255) {
+                    pixel_color[j][i].b = 255;
                 }
-
             }
-            out << (int) pixel_col[j][i].r << std::endl;
-            out << (int) pixel_col[j][i].g << std::endl;
-            out << (int) pixel_col[j][i].b << std::endl;
+            out << (int) pixel_color[j][i].r << std::endl;
+            out << (int) pixel_color[j][i].g << std::endl;
+            out << (int) pixel_color[j][i].b << std::endl;
         }
     }
     return 0;
 }
-//12 50
