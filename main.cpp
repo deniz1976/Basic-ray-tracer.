@@ -127,9 +127,25 @@ int main() {
     out << "P3\n" << width << "\n" << height << "\n" << "255\n";
     Color pixel_color[410][410];
     Color white(255, 255, 255);
-    Color red(255, 0, 0);
+    /**
+     * if you want to change the color of sphere just change r g b parameters of Color red.
+     */
+    Color sphereColor(255, 0, 0);
     Sphere sphere(Vector(width / 2.0, height / 2.0, 50), 20);
     Sphere light(Vector(0, 0, 50), 1);
+
+    /**
+     * multiple light sources option will be added in future but for now you can just create a new sphere object just
+     * like below and add their coordinates with other spheres coordinates.
+     * you have to remember that the radius of light source matters(So you have to use G(center of mass) while doing
+     * +- operation.) and want to add two spheres you have to add x1 and x2 coordinates , y1 and y2 so on
+     * there is no + or - operator for sphere struct but im going to add this operator in future.
+     * and also remember image is 410x410 so these are your borders.
+     */
+
+//    Sphere light2(Vector(410,0,50),1);
+//    Sphere light3((light.center+light2.center)/2,1);
+
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             Ray ray(Vector(float(i), float(j), -50), Vector(0, 0, 1));
@@ -139,7 +155,7 @@ int main() {
                 Vector L = light.center - P;
                 Vector N = sphere.getNormal(P);
                 float dt = dot(L.normalize(), N.normalize());
-                pixel_color[j][i] = red + (white * dt) * 1.0;
+                pixel_color[j][i] = sphereColor + (white * dt) * 1.0;
                 if (pixel_color[j][i].r < 0) {
                     pixel_color[j][i].r = 0;
                 }
