@@ -67,8 +67,10 @@ public:
     float radius;
 
     Sphere(const Vector &center, float radius) {
+        if (radius > 0) { this->radius = radius; }
+        else { this->radius = 0; }
         this->center = center;
-        this->radius = radius;
+
     }
 
     [[nodiscard]] Vector getNormal(const Vector &pi) const {
@@ -91,6 +93,22 @@ public:
             t = (t0 < t1) ? t0 : t1;
             return true;
         }
+    }
+
+    //added new operators for multiple light sources but just remember you cant create a sphere with negative radius
+    //also there is a small problem with G mass of center,fix it.
+    Sphere operator+(const Sphere &sphere) const {
+        return {Vector(this->center.x * radius + sphere.center.x * radius, this->center.y * radius +
+                                                                           sphere.center.y * radius,
+                       this->center.z * radius + sphere.center.z * radius),
+                (this->radius * this->radius + radius * radius) / 2};
+    }
+
+    Sphere operator-(const Sphere &sphere) const {
+        return {Vector(this->center.x * radius - sphere.center.x * radius, this->center.y * radius -
+                                                                           sphere.center.y * radius,
+                       this->center.z * radius - sphere.center.z * radius),
+                (this->radius * this->radius - radius * radius) / 2};
     }
 
 };
@@ -127,9 +145,11 @@ int main() {
     out << "P3\n" << width << "\n" << height << "\n" << "255\n";
     Color pixel_color[410][410];
     Color white(255, 255, 255);
+
     /**
      * if you want to change the color of sphere just change r g b parameters of Color red.
      */
+
     Color sphereColor(255, 0, 0);
     Sphere sphere(Vector(width / 2.0, height / 2.0, 50), 20);
     Sphere light(Vector(0, 0, 50), 1);
