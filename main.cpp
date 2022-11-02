@@ -1,8 +1,8 @@
 /**
  * a basic ray tracer in C++17
  * Deniz Mutlu
- * Thanks for Marcus Mathiassen for the idea and source code of this algorithm
- * its a simple algorithm and it has no perspective
+ * Thanks for Marcus Mathiassen for the idea and source code of this algoritm
+ * its a simple algoritm and has no perspective
  */
 
 #include <iostream>
@@ -39,7 +39,7 @@ public:
 
     Vector operator/(float d) const { return {x / d, y / d, z / d}; }
 
-    [[nodiscard]] Vector normalize() const {
+    [[std::nodiscard]] Vector normalize() const {
         float mg = sqrt(x * x + y * y + z * z);
         return {x / mg, y / mg, z / mg};
     }
