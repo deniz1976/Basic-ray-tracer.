@@ -10,7 +10,7 @@
 #include <string>
 #include <algorithm>
 #include <cmath>
-#pragma once
+
 using namespace std;
 
 struct Vector {
