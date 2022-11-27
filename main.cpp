@@ -2,7 +2,7 @@
  * a basic ray tracer in C++17
  * Deniz Mutlu
  * Thanks for Marcus Mathiassen for the idea and source code of this algorithm
- * its a simple algorithm and has no perspective
+ * Its a simple algorithm and has no perspective
  */
 
 #include <iostream>
