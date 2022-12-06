@@ -195,9 +195,9 @@ int main() {
                     pixel_color[j][i].b = 255;
                 }
             }
-            out << (int) pixel_color[j][i].r << std::endl;
-            out << (int) pixel_color[j][i].g << std::endl;
-            out << (int) pixel_color[j][i].b << std::endl;
+            std::out << (int) pixel_color[j][i].r << std::endl;
+            std::out << (int) pixel_color[j][i].g << std::endl;
+            std::out << (int) pixel_color[j][i].b << std::endl;
         }
     }
     return 0;
