@@ -95,7 +95,7 @@ public:
         }
     }
 
-    //added new operators for multiple light sources but just remember you cant create a sphere with negative radius.
+    //added new operators for multiple light sources but just remember you cant create a sphere with negative radius
     //also there is a small problem with G mass of center,I will fix it.
     Sphere operator+(const Sphere &sphere) const {
         return {Vector(this->center.x * radius + sphere.center.x * radius, this->center.y * radius +
